@@ -1,0 +1,29 @@
+%YAML 1.1
+---
+default-log-dir: /var/log/suricata
+default-rule-path: /etc/suricata/rules
+
+app-layer:
+  protocols:
+    http:
+      enabled: yes  # Explicitly enabling HTTP protocol
+
+outputs:
+  - eve-log:
+      enabled: yes
+      filetype: regular
+      filename: eve.json
+      types:
+        - alert
+        - http
+        - dns
+        - tls
+        - stats:
+            enabled: yes
+
+  - stats:
+      enabled: yes
+      filename: stats.log
+
+rule-files:
+  - rules/local.rules
